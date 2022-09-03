@@ -1,0 +1,56 @@
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Libros App</h1>
+      <p class="lead text-muted">Una aplicacion donde encuentras todos los libros!!</p>
+      <p>
+        <a href="/create-books" class="btn btn-primary my-2">Crear nuevo libro</a>
+        <a href="/create-authors" class="btn btn-secondary my-2">Crear nuevo autor</a>
+        <a href="/create-editorials" class="btn btn-secondary my-2">Crear nueva editorial</a>
+        <a href="/create-categories" class="btn btn-secondary my-2">Crear nuevo categoria</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+
+      {{#if hasBooks}}
+
+        {{#each books as |book|}}
+
+          <div class="card col-md-3">
+            <img src="{{book.image}}" class="card-img-top" alt="book">
+            <div class="card-body">
+              <h5 class="card-title">{{book.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{book.publication}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">{{book.author.dataValues.name}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">{{book.category.dataValues.name}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted">{{book.editorial.dataValues.name}}</h6>
+
+              <form id="form-delete" class="form-inline" action="/delete-books" method="post">
+                <input type="hidden" name="booksId" value="{{book.id}}" />
+                <a
+                href="/edit-books/{{book.id}}?edit=true"
+                class="btn btn-warning"
+                >Editar</a>
+                <button type="submit" id="delete-books" class="btn btn-danger">Eliminar</button>
+
+              </form>
+            </div>
+          </div>
+
+        {{/each}}
+
+      {{else}}
+
+        <h1>no hay libros creados</h1>
+
+      {{/if}}
+
+    </div>
+  </div>
+</div>

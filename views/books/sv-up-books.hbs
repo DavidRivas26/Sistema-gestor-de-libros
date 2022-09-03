@@ -1,0 +1,121 @@
+<div class="row">
+
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+
+    {{#if hasAuthors}}
+    {{#if hasCategories}}
+    {{#if hasEditorials}}  
+
+    <div class="card mt-5">
+      <div class="card-header bg-dark text-white">
+        {{#if editMode}}Edicion{{else}}Creacion{{/if}} de libros
+      </div>
+      <div class="card-body">
+
+        <form method="POST" action="{{#if editMode}}/edit-books{{else}}/create-books{{/if}}">
+          
+          <div class="mb-3">
+            <label for="title" class="form-label">Titulo:</label>
+            <input type="text" class="form-control" id="title" name="Title" value="{{#if editMode}}{{book.title}}{{/if}}" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="publication" class="form-label">Año de publicacion:</label>
+            <input type="number" class="form-control" id="publication" name="Publication" value="{{#if editMode}}{{book.publication}}{{/if}}" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="image-file" class="form-label">Selecciona una imagen</label>
+            <input type="file" class="form-control" id="image-file" name="Image" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="author" class="form-label">Autor: </label>
+            <select class="form-select" id="author" name="Author">
+              <option {{#if editMode}}{{else}}selected{{/if}} disabled>Seleccione una opcion</option>
+
+              {{#each authors as |author|}}
+
+                  {{#if (isEqual author.id ../book.authorId )}}
+                  <option selected value="{{author.id}}">{{author.name}}</option>
+                  {{else}}
+                  <option value="{{author.id}}">{{author.name}}</option>
+                  {{/if}}
+                 
+               {{/each}}
+              
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="category" class="form-label">Categorias: </label>
+            <select class="form-select" id="category" name="Category">
+              <option {{#if editMode}}{{else}}selected{{/if}} disabled>Seleccione una opcion</option>
+
+              {{#each categories as |category|}}
+
+                  {{#if (isEqual category.id ../book.categoryId )}}
+                  <option selected value="{{category.id}}">{{category.name}}</option>
+                  {{else}}
+                  <option value="{{category.id}}">{{category.name}}</option>
+                  {{/if}}
+                 
+               {{/each}}
+              
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="editorial" class="form-label">Editoriales: </label>
+            <select class="form-select" id="editorial" name="Editorial">
+              <option {{#if editMode}}{{else}}selected{{/if}} disabled>Seleccione una opcion</option>
+
+              {{#each editorials as |editorial|}}
+
+                  {{#if (isEqual editorial.id ../book.editorialId )}}
+                  <option selected value="{{editorial.id}}">{{editorial.name}}</option>
+                  {{else}}
+                  <option value="{{editorial.id}}">{{editorial.name}}</option>
+                  {{/if}}
+                 
+               {{/each}}
+              
+            </select>
+          </div>
+         
+          {{#if editMode}}
+
+          <input type="hidden" name="booksId" value="{{book.id}}">
+          
+          {{/if}}
+
+          <button type="submit" class="btn btn-primary">{{#if editMode}}Editar{{else}}Crear{{/if}}</button>
+           <a href="/" type="button" class="btn btn-warning">volver atras</a>
+        </form>
+
+      </div>
+    </div>
+
+    {{else}}
+
+    <h1 class="mt-5 text-center">No hay editoriales creados</h1>
+
+    {{/if}}
+
+    {{else}}
+
+    <h1 class="mt-5 text-center">No hay categorias creadas</h1>
+
+    {{/if}}
+
+    {{else}}
+
+    <h1 class="mt-5 text-center">No hay autores creados</h1>
+
+    {{/if}}
+
+  </div>
+  <div class="col-md-6"></div>
+
+</div>

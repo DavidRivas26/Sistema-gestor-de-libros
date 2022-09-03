@@ -1,0 +1,48 @@
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="fw-light">Libros App</h1>
+      <p class="lead text-muted">Una aplicacion donde encuentras todos los libros!!</p>
+      <p>
+        <a href="/create-categories" class="btn btn-secondary my-2">Crear nueva categoria</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row">
+
+      {{#if hasCategories}}
+
+        {{#each categories as |category|}}
+
+          <div class="card col-md-3">
+            <div class="card-body">
+              <h5 class="card-title">{{category.name}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{category.description}}</h6>
+              <form class="form-inline" id="form-delete" action="/delete-categories" method="post">
+                <input type="hidden" name="categoriesId" value="{{category.id}}" />
+                <a
+                href="/edit-categories/{{category.id}}?edit=true"
+                class="btn btn-warning"
+                >Editar</a>
+
+                <button type="submit" id="delete-categories" class="btn btn-danger">Eliminar</button>
+
+              </form>
+            </div>
+          </div>
+
+        {{/each}}
+      {{else}}
+
+        <h1>no hay categorias creadas</h1>
+
+      {{/if}}
+
+    </div>
+  </div>
+</div>
